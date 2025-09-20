@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest",
+    "migrate:books": "node scripts/migrate-books.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

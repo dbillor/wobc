@@ -150,7 +150,7 @@ export class ImageGenerator {
       .filter(Boolean) as GeminiPart[];
 
     const promptSections = [
-      "You are Nanobanana, a Gemini concept artist maintaining consistent characters and dreamy pixel art lighting for a children's picture book.",
+      "You are Nanobanana, a Gemini concept artist maintaining consistent characters and a clear progression for a children's picture book.",
       "\n## Story Overview",
       `- Title: ${book.title}`,
       `- Lesson: ${book.intent.lesson}`,
@@ -186,9 +186,8 @@ export class ImageGenerator {
         : undefined,
       options.frameSeed ? `\n## Seed Hint\n- ${options.frameSeed}` : undefined,
       "\n## Rendering Guidance",
-      "- Pixel-inspired illustration with warm gradients and cohesive lighting.",
       "- Portrait orientation at 768x1024. Keep characters prominent and expressive.",
-      "- Use the dreamy pastel palette described. Do not include text overlays or UI elements.",
+      "- Use the dreamy pastel palette described",
       "- Deliver a single finished illustration as inline image data.",
     ].filter(Boolean);
 

@@ -63,9 +63,21 @@ async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookR
   }
 
   let mutated = false;
+  let normalizedBook = book;
+
+  if (!normalizedBook.intent?.audience) {
+    normalizedBook = {
+      ...normalizedBook,
+      intent: {
+        audience: "child",
+        ...normalizedBook.intent,
+      },
+    };
+    mutated = true;
+  }
 
   const pages = await Promise.all(
-    book.pages.map(async (page) => {
+    normalizedBook.pages.map(async (page) => {
       if (!page.imageUrl) {
         return page;
       }
@@ -95,7 +107,7 @@ async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookR
       const normalizedUrl = normalizePlaceholderUrl(
         page.imageUrl,
         page.pageNumber,
-        book.intent.theme
+        normalizedBook.intent.theme
       );
 
       if (normalizedUrl === page.imageUrl) {
@@ -111,12 +123,12 @@ async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookR
   );
 
   if (!mutated) {
-    return { book, mutated: false };
+    return { book: normalizedBook, mutated: false };
   }
 
   return {
     book: {
-      ...book,
+      ...normalizedBook,
       pages,
     },
     mutated: true,

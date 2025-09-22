@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "World of Bookcraft",
   description:
-    "Write luminous baby books with rich prompts, gorgeous art direction, and pixel-perfect continuity.",
+    "Craft illustrated stories for little dreamers and adult thinkers with rich prompts, adaptive tones, and continuity-aware art direction.",
 };
 
 export default function RootLayout({

@@ -11,6 +11,7 @@ vi.mock("@/lib/repository/page-image-repository", () => ({
 }));
 
 const intent: StoryIntent = {
+  audience: "child",
   theme: "Moon sprites share dreams",
   lesson: "compassion",
   ageRange: "Ages 3-6",

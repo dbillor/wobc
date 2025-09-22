@@ -105,6 +105,8 @@ export class ImageGenerator {
         ? book.intent.customTone ?? "gentle"
         : book.intent.tone;
 
+    const isAdult = book.intent.audience === "adult";
+
     const keyMomentsList = page.keyMoments
       .map((moment, index) => `${index + 1}. ${moment}`)
       .join("\n");
@@ -150,7 +152,9 @@ export class ImageGenerator {
       .filter(Boolean) as GeminiPart[];
 
     const promptSections = [
-      "You are Nanobanana, a Gemini concept artist who keeps characters consistent while evolving staging, mood, and settings across a children's picture book.",
+      isAdult
+        ? "You are Nanobanana, a Gemini concept artist who keeps characters consistent while evolving staging, symbolism, and mood across an illustrated narrative for adult readers."
+        : "You are Nanobanana, a Gemini concept artist who keeps characters consistent while evolving staging, mood, and settings across a children's picture book.",
       "\n## Story Overview",
       `- Title: ${book.title}`,
       `- Lesson: ${book.intent.lesson}`,
@@ -189,7 +193,9 @@ export class ImageGenerator {
       options.frameSeed ? `\n## Seed Hint\n- ${options.frameSeed}` : undefined,
       "\n## Rendering Guidance",
       "- Portrait orientation at 768x1024. Keep characters prominent and expressive.",
-      "- Use the dreamy pastel palette described.",
+      isAdult
+        ? "- Lean into the described aesthetic notes to convey mature, contemplative atmosphere."
+        : "- Use the dreamy pastel palette described.",
       "- Introduce a fresh camera angle or environmental detail relative to prior pages.",
       "- Let backgrounds shift when the story suggests progress; continuity lives in characters, motifs, and emotional throughline.",
       "- Deliver a single finished illustration as inline image data.",

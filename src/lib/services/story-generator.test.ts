@@ -5,6 +5,7 @@ import { StoryIntent } from "@/lib/types/story";
 
 describe("StoryGenerator", () => {
   const intent: StoryIntent = {
+    audience: "child",
     theme: "A lighthouse teaches bravery",
     lesson: "Asking for guidance",
     ageRange: "Ages 2-4",

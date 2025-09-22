@@ -6,7 +6,7 @@ import {
   StoryPage,
 } from "@/lib/types/story";
 import {
-  STORY_SYSTEM_PROMPT,
+  buildStorySystemPrompt,
   buildStoryUserPrompt,
 } from "@/lib/prompts/story-template";
 import {
@@ -47,7 +47,7 @@ export class StoryGenerator {
       messages: [
         {
           role: "system",
-          content: STORY_SYSTEM_PROMPT,
+          content: buildStorySystemPrompt(intent),
         },
         {
           role: "user",
@@ -55,13 +55,21 @@ export class StoryGenerator {
         },
       ],
       temperature: 0.7,
-      max_tokens: 5500,
+      max_tokens: Math.min(12000, Math.max(4000, intent.pageCount * 400)),
+      response_format: { type: "json_object" },
     });
 
-    const raw = response.choices?.[0]?.message?.content?.trim();
+    const choice = response.choices?.[0];
+    const raw = choice?.message?.content?.trim();
 
     if (!raw) {
       throw new Error("Story generator returned empty response");
+    }
+
+    if (choice?.finish_reason === "length") {
+      throw new Error(
+        "Story generator response was truncated. Try reducing page count or splitting your prompt."
+      );
     }
 
     return this.parseAndMap(raw);
@@ -149,38 +157,62 @@ export class StoryGenerator {
   }
 
   private generateMock(intent: StoryIntent) {
-    const motifs = [
-      "twinkling fireflies",
-      "soft felt textures",
-      "dreamy indigo gradients",
-      "gentle humming lullaby notes",
-      "floating constellation trails",
-    ];
+    const isAdult = intent.audience === "adult";
+    const motifs = isAdult
+      ? [
+          "flickering candlelight",
+          "ink-stained journal pages",
+          "distant constellations shimmering",
+          "rain-soaked cobblestones",
+          "soft chiaroscuro spill of twilight",
+        ]
+      : [
+          "twinkling fireflies",
+          "soft felt textures",
+          "dreamy indigo gradients",
+          "gentle humming lullaby notes",
+          "floating constellation trails",
+        ];
 
     const pages: StoryPage[] = Array.from({ length: intent.pageCount }, (_, idx) => ({
       pageNumber: idx + 1,
       headline: `Scene ${idx + 1}: ${intent.theme}`,
-      narrative:
-        "Placeholder narrative crafted for offline mode. Replace with OpenAI-powered prose when API keys are configured.",
-      illustrationPrompt: `Whimsical ${intent.theme} moment with ${intent.characters
-        .map((c) => c.name)
-        .join(", ") || "a curious child"} under ${motifs[idx % motifs.length]}.` +
-        " Stylized as a pixel-inspired picture book, consistent characters, cozy palette.",
+      narrative: isAdult
+        ? "Placeholder narrative for adult illustrated stories. Replace with OpenAI-powered prose when API keys are configured, and expand into reflective, nuanced paragraphs."
+        : "Placeholder narrative crafted for offline mode. Replace with OpenAI-powered prose when API keys are configured.",
+      illustrationPrompt:
+        (isAdult
+          ? `Atmospheric ${intent.theme} tableau featuring ${
+              intent.characters.map((c) => c.name).join(", ") || "a contemplative protagonist"
+            } amid ${motifs[idx % motifs.length]}.`
+          : `Whimsical ${intent.theme} moment with ${
+              intent.characters.map((c) => c.name).join(", ") || "a curious child"
+            } under ${motifs[idx % motifs.length]}.`) +
+        (isAdult
+          ? " Render as a richly textured illustrated narrative with symbolic lighting and mature palette."
+          : " Stylized as a pixel-inspired picture book, consistent characters, cozy palette."),
       keyMoments: [
-        "Introduce characters",
-        "Reveal gentle conflict",
-        "Celebrate caring resolution",
+        isAdult ? "Surface internal conflict" : "Introduce characters",
+        isAdult ? "Expose philosophical turning point" : "Reveal gentle conflict",
+        isAdult ? "Offer resonant insight" : "Celebrate caring resolution",
       ],
       imageUrl: undefined,
     }));
 
     return {
       title: `${intent.theme} Adventure`,
-      subtitle: `A ${intent.tone} tale about ${intent.lesson}`,
-      dedication: "For every tiny heart eager to imagine.",
-      moral: `Even the smallest explorer can learn about ${intent.lesson}.`,
-      aestheticNotes:
-        "Lean into soft pixel art lighting, velvety shadows, nostalgic gaming motifs blended with modern storybook warmth.",
+      subtitle: isAdult
+        ? `An illustrated meditation on ${intent.lesson}`
+        : `A ${intent.tone} tale about ${intent.lesson}`,
+      dedication: isAdult
+        ? "For fellow travelers seeking meaning between the lines."
+        : "For every tiny heart eager to imagine.",
+      moral: isAdult
+        ? `Carry forward this insight: ${intent.lesson}.`
+        : `Even the smallest explorer can learn about ${intent.lesson}.`,
+      aestheticNotes: isAdult
+        ? "Embrace moody lighting, painterly textures, and symbolic staging that speaks to adult readers while keeping characters recognizable."
+        : "Lean into soft pixel art lighting, velvety shadows, nostalgic gaming motifs blended with modern storybook warmth.",
       pages,
     } satisfies Omit<GeneratedBook, "id" | "createdAt" | "status" | "intent">;
   }

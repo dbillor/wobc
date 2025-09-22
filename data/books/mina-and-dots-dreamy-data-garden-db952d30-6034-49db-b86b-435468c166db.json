@@ -2,6 +2,7 @@
   "id": "db952d30-6034-49db-b86b-435468c166db",
   "createdAt": "2025-09-20T05:37:45.904Z",
   "intent": {
+    "audience": "child",
     "theme": "mongo db",
     "lesson": "believing in yourself and accepting help",
     "ageRange": "Ages 2",

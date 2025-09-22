@@ -2,6 +2,7 @@
   "id": "d51e759a-39b0-4503-980e-e79a4a6ea86e",
   "createdAt": "2025-09-20T17:44:02.382Z",
   "intent": {
+    "audience": "child",
     "theme": "a monkey in a jungle",
     "lesson": "aliens are real and they can hurt us",
     "ageRange": "ages6-10",

@@ -2,6 +2,7 @@
   "id": "379610d2-c146-447c-a2aa-289cd7062112",
   "createdAt": "2025-09-20T05:17:23.031Z",
   "intent": {
+    "audience": "child",
     "theme": "A brave little star learns to shine",
     "lesson": "believing in yourself and accepting help",
     "ageRange": "Ages 2-5",

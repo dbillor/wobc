@@ -2,6 +2,7 @@
   "id": "9554d1d3-b9c7-47dc-88da-c2237bcf007a",
   "createdAt": "2025-09-20T05:45:37.023Z",
   "intent": {
+    "audience": "child",
     "theme": "a baby that's a super ai user",
     "lesson": "getting ready for a future with ai",
     "ageRange": "Ages 2-5",

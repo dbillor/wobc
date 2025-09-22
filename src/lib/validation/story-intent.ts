@@ -19,13 +19,14 @@ export const characterInputSchema = z.object({
 });
 
 export const storyIntentSchema = z.object({
-  theme: z.string().min(3).max(800),
-  lesson: z.string().min(3).max(600),
-  ageRange: z.string().min(3).max(80),
+  audience: z.enum(["child", "adult"]),
+  theme: z.string().min(3),
+  lesson: z.string().min(3),
+  ageRange: z.string().min(3),
   tone: z.enum(["gentle", "playful", "adventurous", "soothing", "wondrous", "custom"]),
-  customTone: z.string().max(320).optional(),
+  customTone: z.string().optional(),
   pageCount: z.number().int().min(8).max(30),
-  styleKeywords: z.array(z.string().min(2).max(140)).max(8),
+  styleKeywords: z.array(z.string().min(2)).max(8),
   characters: z.array(characterInputSchema).max(6),
 });
 

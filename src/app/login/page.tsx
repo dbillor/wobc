@@ -13,7 +13,7 @@ export default function LoginPage() {
       <div className="relative flex flex-col items-center gap-8">
         <div className="text-center space-y-2">
           <p className="text-xs uppercase tracking-[0.35em] text-sunset">Nanobanana Studio</p>
-          <h1 className="text-3xl font-semibold">Sign in to craft baby books</h1>
+          <h1 className="text-3xl font-semibold">Sign in to craft illustrated stories</h1>
         </div>
         <LoginForm />
         <p className="text-xs text-dim">Forgot the passcode? Hint: we keep it in the family.</p>

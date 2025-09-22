@@ -5,6 +5,7 @@ import { StoryIntent } from "@/lib/types/story";
 
 describe("parseStoryIntent", () => {
   const baseIntent: StoryIntent = {
+    audience: "child",
     theme: "A caring comet learns patience",
     lesson: "sharing and waiting turns",
     ageRange: "Ages 3-5",

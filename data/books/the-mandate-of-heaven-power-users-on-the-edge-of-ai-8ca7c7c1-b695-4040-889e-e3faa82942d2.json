@@ -2,6 +2,7 @@
   "id": "8ca7c7c1-b695-4040-889e-e3faa82942d2",
   "createdAt": "2025-09-22T16:26:37.182Z",
   "intent": {
+    "audience": "child",
     "theme": "here’s this small niche of people with no technical background or flashy résumés, but who are obsessively into AI on a deep, non-technical level. They follow every new model, know their quirks and capabilities, and often end up knowing more about current systems than some computer science folks in the field, simply because they’re constantly experimenting and staying up to date.\nThese people have valuable insights but no real way to apply them: labs don’t see their use, they lack the skills to build things themselves, and they’re not rich enough to hire others. Ironically, they may benefit from AGI more than most technical staff. And if labs were smart, they’d bring them in for their unique outside perspective and uncanny intuition about AI, even if it’s not technical.",
     "lesson": "the power users of AI are the ones who have the mandate of heaven",
     "ageRange": "Ages 21-50",

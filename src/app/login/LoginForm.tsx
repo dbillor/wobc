@@ -1,12 +1,18 @@
 'use client';
 
-import { FormEvent, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { FormEvent, useMemo, useState, useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+
+  const intendedAudience = useMemo(() => {
+    const requested = searchParams.get("audience");
+    return requested === "adult" || requested === "child" ? requested : null;
+  }, [searchParams]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +30,8 @@ export function LoginForm() {
       });
 
       if (response.ok) {
-        router.replace("/studio");
+        const destination = intendedAudience ? `/studio?audience=${intendedAudience}` : "/studio";
+        router.replace(destination);
         router.refresh();
         return;
       }

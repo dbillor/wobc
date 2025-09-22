@@ -1,3 +1,5 @@
+export type StoryAudience = "child" | "adult";
+
 export type ToneOption =
   | "gentle"
   | "playful"
@@ -14,6 +16,7 @@ export interface CharacterInput {
 }
 
 export interface StoryIntent {
+  audience: StoryAudience;
   theme: string;
   lesson: string;
   ageRange: string;
@@ -66,4 +69,3 @@ export interface StoryGenerationResult {
   book: GeneratedBook;
   progress: StoryJobProgress;
 }
-

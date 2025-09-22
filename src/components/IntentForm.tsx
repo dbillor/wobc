@@ -1,9 +1,10 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { v4 as uuid } from "uuid";
 
-import { ToneOption } from "@/lib/types/story";
+import { StoryAudience, ToneOption } from "@/lib/types/story";
 import { useBookStore } from "@/state/book-store";
 
 interface CharacterDraft {
@@ -14,6 +15,7 @@ interface CharacterDraft {
 }
 
 interface IntentDraft {
+  audience: StoryAudience;
   theme: string;
   lesson: string;
   ageRange: string;
@@ -23,6 +25,23 @@ interface IntentDraft {
   styleKeywords: string;
   characters: CharacterDraft[];
 }
+
+const audienceOptions: Array<{
+  value: StoryAudience;
+  label: string;
+  description: string;
+}> = [
+  {
+    value: "child",
+    label: "Children & caregivers",
+    description: "Bedtime-ready picture books with gentle wonder",
+  },
+  {
+    value: "adult",
+    label: "Adult & philosophical",
+    description: "Illustrated narratives exploring complex, reflective themes",
+  },
+];
 
 const toneOptions: Array<{ value: ToneOption; label: string; description: string }> = [
   {
@@ -58,6 +77,7 @@ const toneOptions: Array<{ value: ToneOption; label: string; description: string
 ];
 
 const defaultIntent: IntentDraft = {
+  audience: "child",
   theme: "A brave little star learns to shine",
   lesson: "believing in yourself and accepting help",
   ageRange: "Ages 2-5",
@@ -70,14 +90,38 @@ const defaultIntent: IntentDraft = {
 
 const MAX_CHARACTERS = 4;
 
+const audiencePresets: Record<StoryAudience, Omit<IntentDraft, "audience" | "characters">> = {
+  child: {
+    theme: "A brave little star learns to shine",
+    lesson: "believing in yourself and accepting help",
+    ageRange: "Ages 2-5",
+    tone: "wondrous",
+    customTone: "",
+    pageCount: 14,
+    styleKeywords: "dreamy pastel pixel art, warm glow, soft shadows",
+  },
+  adult: {
+    theme: "An aging astronomer revisits forgotten constellations",
+    lesson: "finding meaning in change and impermanence",
+    ageRange: "Adult readers",
+    tone: "custom",
+    customTone: "philosophical, contemplative cadence with lyrical prose",
+    pageCount: 12,
+    styleKeywords: "moody oil-painted lighting, chiaroscuro, rich textures, contemplative palette",
+  },
+};
+
 export function IntentForm() {
   const [draft, setDraft] = useState<IntentDraft>(defaultIntent);
   const [characterPreviewId, setCharacterPreviewId] = useState<string | null>(null);
   const status = useBookStore((state) => state.status);
   const error = useBookStore((state) => state.error);
   const submitIntent = useBookStore((state) => state.submitIntent);
+  const searchParams = useSearchParams();
+  const requestedAudience = searchParams.get("audience");
 
   const isSubmitting = status === "submitting";
+  const isAdult = draft.audience === "adult";
 
   const canAddCharacter = draft.characters.length < MAX_CHARACTERS;
 
@@ -89,6 +133,20 @@ export function IntentForm() {
         .filter(Boolean),
     [draft.styleKeywords]
   );
+
+  useEffect(() => {
+    if (!requestedAudience) return;
+    if (requestedAudience !== "child" && requestedAudience !== "adult") return;
+    setDraft((state) => {
+      if (state.audience === requestedAudience) return state;
+      return {
+        ...state,
+        ...audiencePresets[requestedAudience],
+        audience: requestedAudience,
+        characters: [],
+      };
+    });
+  }, [requestedAudience]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -104,6 +162,7 @@ export function IntentForm() {
       pageCount: draft.pageCount,
       styleKeywords,
       characters: draft.characters,
+      audience: draft.audience,
     });
   };
 
@@ -166,10 +225,39 @@ export function IntentForm() {
           Create or write your story.
         </h1>
         <p className="text-sm md:text-base text-muted">
-          Drop in your theme, the lesson you wish to share, and any tiny heroes to feature.
-          Our high-reasoning muse will weave a story and illustration prompts that stay true across every page.
+          Drop in your theme, the lesson you wish to share, and any heroes to feature.
+          Our high-reasoning muse will weave a story and illustration prompts tuned to your chosen audience, keeping mood and characters consistent across every page.
         </p>
       </header>
+
+      <section className="grid gap-3 md:grid-cols-2">
+        {audienceOptions.map((option) => {
+          const isActive = draft.audience === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() =>
+                setDraft((state) => {
+                  if (state.audience === option.value) return state;
+                  return {
+                    ...state,
+                    ...audiencePresets[option.value],
+                    audience: option.value,
+                    characters: [],
+                  };
+                })
+              }
+              className={`pixel-toggle ${isActive ? "pixel-toggle-active" : ""}`}
+            >
+              <span className="text-sm font-semibold uppercase tracking-wider">
+                {option.label}
+              </span>
+              <span className="text-xs text-dim leading-snug">{option.description}</span>
+            </button>
+          );
+        })}
+      </section>
 
       <section className="grid gap-6 md:grid-cols-2">
         <label className="pixel-card">
@@ -180,7 +268,11 @@ export function IntentForm() {
             value={draft.theme}
             onChange={(event) => setDraft((state) => ({ ...state, theme: event.target.value }))}
             className="pixel-input"
-            placeholder="A compassionate robot learns to hug"
+            placeholder={
+              isAdult
+                ? "A historian wanders abandoned libraries searching for meaning"
+                : "A compassionate robot learns to hug"
+            }
           />
         </label>
         <label className="pixel-card">
@@ -191,7 +283,11 @@ export function IntentForm() {
             value={draft.lesson}
             onChange={(event) => setDraft((state) => ({ ...state, lesson: event.target.value }))}
             className="pixel-input"
-            placeholder="Bravery includes asking for help"
+            placeholder={
+              isAdult
+                ? "Wisdom comes from embracing paradox and vulnerability"
+                : "Bravery includes asking for help"
+            }
           />
         </label>
       </section>
@@ -205,7 +301,7 @@ export function IntentForm() {
             value={draft.ageRange}
             onChange={(event) => setDraft((state) => ({ ...state, ageRange: event.target.value }))}
             className="pixel-input"
-            placeholder="Ages 0-3"
+            placeholder={isAdult ? "Adult readers" : "Ages 0-3"}
           />
         </label>
         <label className="pixel-card">
@@ -221,7 +317,7 @@ export function IntentForm() {
             className="pixel-slider"
           />
           <span className="text-xs text-dim mt-2">
-            {draft.pageCount} scenes to explore
+            {draft.pageCount} {isAdult ? "movements" : "scenes"} to explore
           </span>
         </label>
       </section>
@@ -273,6 +369,11 @@ export function IntentForm() {
             setDraft((state) => ({ ...state, styleKeywords: event.target.value }))
           }
           className="pixel-input"
+          placeholder={
+            isAdult
+              ? "textured ink washes, chiaroscuro lighting, contemplative compositions"
+              : "dreamy pastel pixel art, warm glow, soft shadows"
+          }
         />
         <div className="flex flex-wrap gap-2 mt-3">
           {styleKeywordChips.map((chip) => (
@@ -385,14 +486,20 @@ export function IntentForm() {
 
       <footer className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="text-xs md:text-sm text-dim max-w-xl">
-          We will craft up to {draft.pageCount} spreads, each paired with a tailored Nanobanana illustration prompt to maintain character continuity and mood across the entire book.
+          {isAdult
+            ? `We will craft up to ${draft.pageCount} illustrated movements, each paired with a tailored Nanobanana prompt to sustain the philosophical mood and symbolism you outline.`
+            : `We will craft up to ${draft.pageCount} spreads, each paired with a tailored Nanobanana illustration prompt to maintain character continuity and mood across the entire book.`}
         </div>
         <button
           type="submit"
           className="pixel-button"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Rendering story..." : "Generate cosmic bedtime book"}
+          {isSubmitting
+            ? "Rendering story..."
+            : isAdult
+              ? "Generate illustrated adult chronicle"
+              : "Generate cosmic bedtime book"}
         </button>
       </footer>
     </form>

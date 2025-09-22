@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 import { LoadingCarousel } from "@/components/LoadingCarousel";
 import { BookViewer } from "@/components/BookViewer";
@@ -22,7 +22,9 @@ export function StudioShell() {
 
   return (
     <div className="flex flex-col items-center gap-12 pb-20">
-      <IntentForm />
+      <Suspense fallback={<div className="pixel-card text-sm text-dim">Loading studio controls...</div>}>
+        <IntentForm />
+      </Suspense>
       {status === "submitting" && <LoadingCarousel />}
       {status === "showing" && book && <BookViewer />}
       {status === "idle" && progress.length > 0 && !book && (

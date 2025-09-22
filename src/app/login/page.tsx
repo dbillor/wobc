@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { LoginForm } from "./LoginForm";
 
@@ -15,7 +16,9 @@ export default function LoginPage() {
           <p className="text-xs uppercase tracking-[0.35em] text-sunset">Nanobanana Studio</p>
           <h1 className="text-3xl font-semibold">Sign in to craft illustrated stories</h1>
         </div>
-        <LoginForm />
+        <Suspense fallback={<span className="sr-only">Loading sign-in form...</span>}>
+          <LoginForm />
+        </Suspense>
         <p className="text-xs text-dim">Forgot the passcode? Hint: we keep it in the family.</p>
         <Link href="/" className="text-xs text-sunset underline">
           Return home

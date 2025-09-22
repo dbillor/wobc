@@ -1,0 +1,179 @@
+{
+  "id": "379610d2-c146-447c-a2aa-289cd7062112",
+  "createdAt": "2025-09-20T05:17:23.031Z",
+  "intent": {
+    "theme": "A brave little star learns to shine",
+    "lesson": "believing in yourself and accepting help",
+    "ageRange": "Ages 2-5",
+    "tone": "wondrous",
+    "pageCount": 14,
+    "styleKeywords": [
+      "dreamy pastel pixel art",
+      "warm glow",
+      "soft shadows"
+    ],
+    "characters": []
+  },
+  "status": "completed",
+  "title": "Luna Lights Up the Sky",
+  "subtitle": "A Brave Star Finds Her Shine",
+  "dedication": "For every little heart learning to glow—shine bright, always.",
+  "moral": "Believing in yourself is easier with a helping hand.",
+  "aestheticNotes": "Dreamy pastel pixel art with a warm glow and soft shadows; recurring motifs include twinkling stars, gentle clouds, and a cozy moon. Consistent character features—Luna’s gentle smile, soft golden light, and her tiny blue scarf—anchor every spread.",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "headline": "A Tiny Star in a Big Sky",
+      "narrative": "High above the world, where dreams begin, lived Luna—a little star with a hopeful heart. Every night, stars shimmered bright, but Luna’s glow was just a gentle glimmer. Still, she wondered, could she ever shine like her friends?",
+      "illustrationPrompt": "Wide view of a pastel night sky filled with softly glowing pixelated stars; Luna, a small star with a blue scarf, sits among fluffy clouds, looking up with wide, curious eyes; gentle warm light; soft lavender, powder blue, and pale gold palette.",
+      "keyMoments": [
+        "Introduce Luna",
+        "Luna wonders about shining bright"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+1%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 2,
+      "headline": "Wishes Whisper on the Wind",
+      "narrative": "Each evening, Luna listened as wishes floated past—hopes for laughter, hugs, and courage. The wind danced around her, tickling her edges and carrying dreams to every corner of the sky.",
+      "illustrationPrompt": "Close-up of Luna’s face, eyes closed, smiling gently as pastel-colored pixel wishes swirl around her; delicate wind lines and tiny sparkles; recurring motif: glowing wishes; soft focus, warm highlights, continuity: Luna’s blue scarf and gentle glow.",
+      "keyMoments": [
+        "Wishes pass by Luna",
+        "The wind brings dreams"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+2%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 3,
+      "headline": "Luna’s Gentle Glow",
+      "narrative": "Luna tried her best to shine, squeezing her eyes and puffing her cheeks. But her light stayed small, just a golden twinkle. She felt shy among her sparkling friends, who shone so boldly.",
+      "illustrationPrompt": "Mid-shot of Luna squinting, cheeks puffed, surrounded by larger, brighter pixel stars; faint golden light emanates from Luna; background stars twinkle with warm pastel hues; soft shadows, continuity: Luna’s determined expression and blue scarf.",
+      "keyMoments": [
+        "Luna tries to shine",
+        "Feels shy among bright stars"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+3%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 4,
+      "headline": "A Cozy Moon’s Encouragement",
+      "narrative": "The kind Moon, round and glowing, noticed Luna’s struggle. With a gentle laugh, she said, “It’s okay to start small, little one. Even the tiniest light can brighten the dark.”",
+      "illustrationPrompt": "The Moon, large and softly luminous, leans down to Luna; close, nurturing framing; Luna looks up, comforted; dreamy clouds drift by; pastel gold and silver color scheme; recurring motif: Moon’s gentle presence.",
+      "keyMoments": [
+        "Moon speaks to Luna",
+        "Moon reassures her"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+4%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 5,
+      "headline": "A Shy Friend Appears",
+      "narrative": "Suddenly, Nova, a quiet comet with a shimmering tail, zipped near. “I was scared to shine, too,” Nova whispered. “Maybe we can help each other?” Luna’s heart fluttered with hope.",
+      "illustrationPrompt": "Nova, a small comet with a pastel rainbow tail, coasts near Luna; both stars look bashful but excited; camera mid-shot, capturing their gentle expressions; pixelated stardust trails connect them; continuity: Luna’s blue scarf, Nova’s shimmering tail.",
+      "keyMoments": [
+        "Nova introduces herself",
+        "Offers to help Luna"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+5%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 6,
+      "headline": "Practice Makes Brighter",
+      "narrative": "Each night, Luna and Nova practiced together. They took deep breaths and counted to three, letting their lights grow a little more. Sometimes they giggled, sometimes they stumbled—but they never gave up.",
+      "illustrationPrompt": "Montage of Luna and Nova practicing: puffing cheeks, glowing brighter, laughing; soft pastel streaks to show movement; camera pans from close-up to wide; warm, playful energy; continuity: blue scarf, comet tail, glowing wishes in background.",
+      "keyMoments": [
+        "Luna and Nova practice",
+        "They support each other"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+6%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 7,
+      "headline": "A Night of Doubt",
+      "narrative": "One evening, clouds gathered thick and gray. Luna felt her light flicker, fear creeping in. “What if I never shine bright enough?” she wondered, voice barely a whisper.",
+      "illustrationPrompt": "Luna sits small beneath looming pixelated clouds; her glow dimmed to a faint spark; camera close-up, capturing her worried face; Nova hovers nearby with a gentle, supportive expression; muted pastels and soft shadows; motif: comforting presence.",
+      "keyMoments": [
+        "Luna feels doubt",
+        "Clouds cover the sky"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+7%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 8,
+      "headline": "Luna’s Friends Gather Round",
+      "narrative": "But as Luna’s light faded, her friends gathered. The Moon, Nova, and nearby stars circled close, their warmth melting the clouds. “We believe in you, Luna!” they cheered, shining together.",
+      "illustrationPrompt": "Wide shot: Luna surrounded by Moon, Nova, and twinkling stars, forming a glowing circle; clouds parting, warm pastel light radiates outward; group’s smiles and outstretched rays; continuity: blue scarf, comet tail, gentle pixelated stardust.",
+      "keyMoments": [
+        "Friends support Luna",
+        "Clouds begin to clear"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+8%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 9,
+      "headline": "A Deep Breath, A Brave Heart",
+      "narrative": "Feeling their caring light, Luna took a deep breath. She remembered Moon’s words and Nova’s kindness. Slowly, warmth bloomed inside her, gentler than before but stronger, too.",
+      "illustrationPrompt": "Close-up on Luna, eyes closed, taking a calming breath; friends’ lights softly illuminating her; subtle golden aura grows; dreamy pastel background; motif: gentle glow, blue scarf, comforting friends nearby.",
+      "keyMoments": [
+        "Luna gathers courage",
+        "Feels warmth from friends"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+9%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 10,
+      "headline": "Shining Together",
+      "narrative": "With her friends by her side, Luna let her light shine. It started as a tiny flicker, then grew—a soft, steady beam glowing across the sky, joining with the lights of her friends.",
+      "illustrationPrompt": "Wide shot: Luna shines steadily, her golden light blending with Nova, Moon, and other stars; pastel beams interlace in pixel art; everyone smiles; warm, cohesive glow; recurring motif: unity in light, blue scarf, comet tail.",
+      "keyMoments": [
+        "Luna shines bright",
+        "Lights blend together"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+10%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 11,
+      "headline": "Lighting Up the Wishes",
+      "narrative": "As Luna gleamed, the wishes floating past caught her light. They sparkled even brighter, carrying hope and joy to children below. Luna’s gentle glow had become a guiding star.",
+      "illustrationPrompt": "Wishes—colorful pixelated shapes—float in beams of light from Luna and her friends; camera angle looking down toward a sleeping world; Luna’s glow gently leads the wishes; dreamy, magical mood; motifs: wishes, blue scarf, pastel palette.",
+      "keyMoments": [
+        "Wishes light up",
+        "Luna becomes a guiding star"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+11%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 12,
+      "headline": "Thank You, Dear Friends",
+      "narrative": "Luna beamed with gratitude. “Thank you for believing in me,” she said. Nova and the Moon hugged her with their shimmering light, reminding her she was never alone in the big, beautiful sky.",
+      "illustrationPrompt": "Luna, Nova, and the Moon in a close, glowing group hug; pixel art stars twinkle around them; soft, pastel-hued embrace; continuity: blue scarf, comet tail, moon’s gentle smile; background filled with tiny, joyful wishes.",
+      "keyMoments": [
+        "Luna thanks her friends",
+        "Group hug"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+12%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 13,
+      "headline": "A Sky Full of Courage",
+      "narrative": "From that night on, Luna shone bravely, her gentle light a comfort to all. Every wish that passed carried a bit of her courage, reminding everyone: even the smallest star can shine, especially with friends by your side.",
+      "illustrationPrompt": "Wide, panoramic night sky: Luna shines among many stars; wishes drift gently; children’s silhouettes look up from below; warm pastel pixel art, gentle glow; continuity: Luna’s blue scarf, recurring motifs: wishes, clouds, stardust.",
+      "keyMoments": [
+        "Luna shines every night",
+        "Her courage spreads"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+13%0AA+brave+little+star+learns+to+shine&format=png"
+    },
+    {
+      "pageNumber": 14,
+      "headline": "You Can Shine, Too",
+      "narrative": "As you drift to sleep, remember Luna’s story: believe in your own special light, and let others help you shine. The sky is full of stars, and there’s always room for your glow.",
+      "illustrationPrompt": "Soothing scene: Luna shining above a cozy bedroom window, moonlight casting soft shadows; gentle pixel art stars fill the sky; pastel blues, lavenders, and golds; motif: Luna’s blue scarf, wishes floating by, gentle glow over a sleeping child.",
+      "keyMoments": [
+        "Message to the reader",
+        "Luna shines above a child"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+14%0AA+brave+little+star+learns+to+shine&format=png"
+    }
+  ]
+}

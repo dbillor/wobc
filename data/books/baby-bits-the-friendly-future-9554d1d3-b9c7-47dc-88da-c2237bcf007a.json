@@ -1,0 +1,121 @@
+{
+  "id": "9554d1d3-b9c7-47dc-88da-c2237bcf007a",
+  "createdAt": "2025-09-20T05:45:37.023Z",
+  "intent": {
+    "theme": "a baby that's a super ai user",
+    "lesson": "getting ready for a future with ai",
+    "ageRange": "Ages 2-5",
+    "tone": "wondrous",
+    "pageCount": 8,
+    "styleKeywords": [
+      "dreamy pastel pixel art",
+      "warm glow",
+      "soft shadows"
+    ],
+    "characters": []
+  },
+  "status": "completed",
+  "title": "Baby Bits & The Friendly Future",
+  "subtitle": "A Little Explorer's Guide to Growing Up with AI",
+  "dedication": "For every tiny dreamer ready to click, giggle, and imagine alongside tomorrow's tools.",
+  "moral": "Curiosity and kindness help us grow with new friends, even the digital ones.",
+  "aestheticNotes": "Dreamy pastel pixel art with a warm glow, soft shadows, and gentle gradients; recurring motifs include glowing cubes, floating icons, and Baby Bits’ cozy yellow blanket—maintain a sense of wonder and gentle continuity on every page.",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "headline": "Meet Baby Bits, Curious and Bright!",
+      "narrative": "In a nursery full of wonder, Baby Bits wakes up with a sparkling giggle. Their big curious eyes notice tiny lights blinking on a nearby tablet, inviting them to play. The world feels magical, full of friendly shapes and gentle colors, ready for a day of discovery and fun.",
+      "illustrationPrompt": "Wide shot of Baby Bits in a pastel crib, sunlight streaming in with soft shadows. Dreamy pixel art: glowing cubes and floating icons hover near a gentle tablet on the bedside. Baby Bits wears a cozy yellow blanket. Warm, inviting palette. Motifs: cubes, icons, yellow blanket.",
+      "keyMoments": [
+        "Baby Bits wakes up",
+        "Tablet blinks invitingly",
+        "Nursery filled with soft light"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/1/image"
+    },
+    {
+      "pageNumber": 2,
+      "headline": "Tapping the Tablet, Wonder Unfolds",
+      "narrative": "Tiny hands reach for the tablet. With a gentle tap, the screen comes alive—swirling colors, friendly robot faces, and playful pings fill the air. Baby Bits squeals with delight, their world growing bigger with every curious touch and glowing smile.",
+      "illustrationPrompt": "Close-up of Baby Bits’ hand tapping the tablet, screen erupting with dreamy pixel swirls and cheerful robot faces. Pastel colors dominate. Soft shadow under Baby Bits’ hand; blanket edge visible. Warm glow from screen lights up Baby Bits' face. Motifs: cubes and robot icons.",
+      "keyMoments": [
+        "Baby Bits taps the tablet",
+        "Tablet animates with playful robots",
+        "Baby Bits smiles in wonder"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/2/image"
+    },
+    {
+      "pageNumber": 3,
+      "headline": "Hello, Pixel Pals!",
+      "narrative": "Out of the screen step the Pixel Pals—tiny, friendly helpers with big eyes and glowing hearts. They wave hello, swirling around Baby Bits with gentle giggles. Each Pal brings a new sound, a new idea, and a spark of excitement for what might happen next.",
+      "illustrationPrompt": "Mid-shot with Baby Bits sitting up, surrounded by three pastel Pixel Pals: one cube-shaped, one round, one star-like, each with glowing heart pixels. Baby Bits’ blanket drapes softly. Warm room light blends with the glow of the Pixel Pals. Motifs: recurring Pixel Pals, blanket.",
+      "keyMoments": [
+        "Pixel Pals appear",
+        "Baby Bits meets new friends",
+        "Excitement fills the room"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/3/image"
+    },
+    {
+      "pageNumber": 4,
+      "headline": "Learning Together, Side by Side",
+      "narrative": "Baby Bits and the Pixel Pals explore shapes, sounds, and colors. They sort glowing cubes, sing silly songs, and laugh when a rainbow bunny pixel hops across the screen. Every moment is a new adventure, with questions and giggles lighting up the cozy room.",
+      "illustrationPrompt": "Bird’s-eye view: Baby Bits and Pixel Pals play on a plush pastel rug, sorting glowing pixel cubes. Rainbow bunny pixel hops nearby on the tablet. Blanket bunched at Baby’s side; toys scattered softly. Gentle, diffuse light. Motifs: pixel cubes, rainbow bunny, blanket.",
+      "keyMoments": [
+        "Sorting shapes with Pixel Pals",
+        "Singing and laughing",
+        "Rainbow bunny joins in"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/4/image"
+    },
+    {
+      "pageNumber": 5,
+      "headline": "A Question Blooms: What Can We Do?",
+      "narrative": "Baby Bits wonders aloud, and the Pixel Pals listen with twinkling eyes. Together, they imagine building towers, painting pictures, and helping friends. The room glows brighter with each new idea, proving that every question can start a wonderful journey.",
+      "illustrationPrompt": "Medium shot: Baby Bits looking thoughtful, Pixel Pals gathered close, imagining pixel towers and vibrant paintings floating as thought bubbles. Increased glow from imagined ideas. Blanket around Baby’s shoulders. Pastel lighting with warm highlights. Motifs: pixel cubes, imagination bubbles, blanket.",
+      "keyMoments": [
+        "Baby Bits asks a question",
+        "Pixel Pals listen",
+        "Ideas blossom in the air"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/5/image"
+    },
+    {
+      "pageNumber": 6,
+      "headline": "A Pause to Hug and Dream",
+      "narrative": "After all the excitement, Baby Bits hugs their yellow blanket and the Pixel Pals snuggle close. Soft lullabies drift through the air, and tiny lights twinkle like stars. Sometimes, the best adventures are the quiet moments shared with friends—real or digital.",
+      "illustrationPrompt": "Soft-focus close-up: Baby Bits hugging blanket, Pixel Pals nestled nearby. Pastel stars and pixel hearts float gently. Lighting is dim, warm, and cozy, with soft shadows. Blanket prominent. Motifs: stars, pixel hearts, yellow blanket.",
+      "keyMoments": [
+        "Baby Bits hugs blanket",
+        "Pixel Pals snuggle",
+        "Peaceful, dreamy pause"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/6/image"
+    },
+    {
+      "pageNumber": 7,
+      "headline": "Goodnight, Pixel Pals",
+      "narrative": "As sleepiness settles in, the Pixel Pals wave goodnight, promising to play and learn again tomorrow. Baby Bits smiles, feeling safe and excited for all the tomorrows yet to come. The future feels friendly, sparkling softly in the quiet night.",
+      "illustrationPrompt": "Wide shot: Baby Bits tucked in bed, Pixel Pals waving from the glowing tablet screen. Pastel moon and stars visible outside window. Blanket over Baby Bits. Room bathed in soft, bluish light with warm glows from the screen. Motifs: moon, stars, glowing tablet, blanket.",
+      "keyMoments": [
+        "Pixel Pals say goodnight",
+        "Baby Bits feels safe",
+        "Future sparkles softly"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/7/image"
+    },
+    {
+      "pageNumber": 8,
+      "headline": "The Adventure Awaits Every Day",
+      "narrative": "Morning brings a new day, full of questions, play, and wonder. With their yellow blanket and Pixel Pals, Baby Bits is ready to learn, dream, and grow. In a world with AI friends, every little explorer can shape a beautiful tomorrow.",
+      "illustrationPrompt": "Bright morning light fills the room. Baby Bits sits up, blanket around shoulders, Pixel Pals reappear on tablet. Pastel colors shine; cubes and icons gently float. Continuity: yellow blanket, Pixel Pals, glowing cubes. Dreamy, optimistic palette with soft shadows.",
+      "keyMoments": [
+        "New day begins",
+        "Baby Bits is ready",
+        "Every day brings adventure"
+      ],
+      "imageUrl": "/api/books/9554d1d3-b9c7-47dc-88da-c2237bcf007a/pages/8/image"
+    }
+  ]
+}

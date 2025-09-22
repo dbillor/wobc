@@ -1,0 +1,121 @@
+{
+  "id": "db952d30-6034-49db-b86b-435468c166db",
+  "createdAt": "2025-09-20T05:37:45.904Z",
+  "intent": {
+    "theme": "mongo db",
+    "lesson": "believing in yourself and accepting help",
+    "ageRange": "Ages 2",
+    "tone": "soothing",
+    "pageCount": 8,
+    "styleKeywords": [
+      "dreamy pastel pixel art",
+      "warm glow",
+      "soft shadows"
+    ],
+    "characters": []
+  },
+  "status": "completed",
+  "title": "Mina and Dot’s Dreamy Data Garden",
+  "subtitle": "Believing in Yourself, Growing Together",
+  "dedication": "For all the little dreamers who learn and bloom with friends.",
+  "moral": "It’s okay to ask for help—together, we grow stronger.",
+  "aestheticNotes": "Dreamy pastel pixel art with a warm glow, soft shadows, gentle gradients, and recurring sparkles; backgrounds shimmer with soothing pinks, lilacs, and mint greens, keeping a consistent, magical garden tech motif throughout.",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "headline": "Mina Finds a Magical Seed",
+      "narrative": "In a cozy pastel garden, Mina the gentle mouse discovers a glowing seed shaped like a tiny database. Curious and hopeful, she dreams of growing something marvelous—but wonders if she can do it alone. The garden hums softly, promising adventure and gentle support all around her.",
+      "illustrationPrompt": "Wide shot of Mina, a small mouse with soft grey fur and oversized pastel overalls, kneeling in dewy grass. She cradles a glowing, pixelated seed resembling a MongoDB logo. Dreamy pastel palette; soft sunrise lighting, long gentle shadows. Recurring motif: tiny sparkling data orbs floating nearby.",
+      "keyMoments": [
+        "Mina finds the magical seed",
+        "Warm garden setting introduced",
+        "Seed glows with promise"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+1%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 2,
+      "headline": "Dot the Firefly Offers a Glow",
+      "narrative": "Suddenly, Dot, a plucky pastel firefly, floats down beside Mina. Her warm light flickers kindly. She offers to help plant the seed, sharing her glow and encouragement. Mina hesitates, shy but hopeful, as Dot’s gentle words make her ears twitch with courage.",
+      "illustrationPrompt": "Medium close-up on Mina and Dot; Dot hovers, her glow casting a soft, warm circle. Mina’s whiskers twitch as she looks up at Dot. Pastel pixel art, gentle pink and gold hues, soft focus. Data orbs drift between them; the seed rests in Mina’s paws.",
+      "keyMoments": [
+        "Dot appears with a warm glow",
+        "Dot offers her help",
+        "Mina feels encouraged"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+2%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 3,
+      "headline": "Together, They Dig and Plant",
+      "narrative": "Mina and Dot work side by side, digging a cozy spot in the soil. Dot’s light guides Mina’s little paws, and together they nestle the magical seed deep into the earth. The garden feels safer and brighter with teamwork, their laughter dancing in the air.",
+      "illustrationPrompt": "Bird’s-eye view: Mina and Dot dig a small hole, pastel pixel soil moved aside; the seed is gently tucked in. Dot’s light illuminates their faces. Garden background with softly blurred flowers and twinkling data orbs. Warm, glowing colors and soft shadowing.",
+      "keyMoments": [
+        "They dig the hole together",
+        "Seed is planted with care",
+        "Laughter and teamwork"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+3%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 4,
+      "headline": "A Sprinkle of Data Dew",
+      "narrative": "Dot sprinkles shimmering dew drops shaped like tiny pixel hearts onto the soil. Mina giggles as the dew twinkles, nourishing the seed. Together, they whisper wishes for the seed to grow strong, believing in the magic of what they’ve started together.",
+      "illustrationPrompt": "Close-up of Dot hovering above the soil, trailing sparkling dew drops onto the planted seed. Mina kneels nearby, paws clasped in hope. Warm pastel tones, heart-shaped dew, subtle glowing data orbs recurring. Soft focus and gentle vignetting at edges.",
+      "keyMoments": [
+        "Dot sprinkles magical dew",
+        "Mina wishes for the seed",
+        "Hopeful, nurturing moment"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+4%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 5,
+      "headline": "A Tiny Sprout, A Big Surprise",
+      "narrative": "The next morning, a pixel-green sprout peeks up, glowing softly! Mina’s eyes widen in awe. Dot dances around the sprout, her light making it shimmer. Mina feels her heart bloom with pride—and gratitude for Dot’s cheerful help and their bright teamwork.",
+      "illustrationPrompt": "Eye-level shot: Mina, eyes wide with wonder, sits beside the glowing sprout. Dot circles above, trailing gentle light. Sprout glows with soft green pixels. Sunbeams and pastel flowers in background. Data orbs and heart motifs subtly repeat.",
+      "keyMoments": [
+        "Sprout emerges overnight",
+        "Mina feels proud and grateful",
+        "Dot celebrates with Mina"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+5%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 6,
+      "headline": "The Data Tree Grows Tall",
+      "narrative": "Day by day, the sprout unfurls into a wondrous data tree, its branches sparkling with tiny memory leaves and glowing orbs. Mina and Dot watch as the garden fills with gentle light, believing in what they’ve made by working together and trusting themselves.",
+      "illustrationPrompt": "Wide shot: The data tree stands tall, pixelated leaves and memory orb fruits glowing. Mina and Dot sit side by side beneath it, faces lit by the tree’s gentle radiance. Pastel pixel art, soft shadows, recurring data and heart motifs in the canopy.",
+      "keyMoments": [
+        "Data tree grows lush and tall",
+        "Garden filled with gentle light",
+        "Mina and Dot sit together"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+6%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 7,
+      "headline": "Sharing the Dreamy Garden",
+      "narrative": "Other pastel critters arrive, drawn by the warm glow. Mina and Dot welcome them, sharing the magical space and stories of their journey. The garden becomes a gentle gathering place, full of friendship, laughter, and the magic of believing in yourself—and letting others help.",
+      "illustrationPrompt": "Medium shot: Mina, Dot, and new animal friends gather beneath the tree, sharing smiles and softly glowing orbs. Gentle pastel palette, warm lighting, data orbs floating between characters. Garden blooms with soft, pixelated flowers, heart motifs in background.",
+      "keyMoments": [
+        "Friends join the garden",
+        "Mina and Dot share their story",
+        "Garden becomes a place of togetherness"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+7%0Amongo+db&format=png"
+    },
+    {
+      "pageNumber": 8,
+      "headline": "A Gentle Glow, Forever Growing",
+      "narrative": "As the sun sets and fireflies twinkle, Mina cuddles close to Dot under the data tree. Their garden glows softly, reminding them that magic grows brightest when you believe in yourself—and accept a friend’s helping hand. Their hearts feel light, ready for new dreams tomorrow.",
+      "illustrationPrompt": "Wide, dreamy twilight view: Mina and Dot snuggled under the glowing data tree, garden bathed in pastel light. Fireflies (tiny Dots) twinkle, data orbs and heart shapes float softly. Warm dusk colors and gentle shadows unify the scene, reflecting peace and comfort.",
+      "keyMoments": [
+        "Twilight settles in garden",
+        "Mina and Dot feel safe and happy",
+        "Theme of belief and help reaffirmed"
+      ],
+      "imageUrl": "https://placehold.co/768x1024/1b1b3a/eeeeff.png?text=Page+8%0Amongo+db&format=png"
+    }
+  ]
+}

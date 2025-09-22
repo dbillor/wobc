@@ -3,6 +3,10 @@ import path from "node:path";
 
 import { GeneratedBook } from "@/lib/types/story";
 import { normalizePlaceholderUrl } from "@/lib/utils/image-placeholders";
+import {
+  deleteBookImages,
+  persistPageImageFromDataUrl,
+} from "@/lib/repository/page-image-repository";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const BOOKS_DIR = path.join(DATA_DIR, "books");
@@ -48,45 +52,89 @@ async function findFileById(id: string) {
   return match ? buildFilePath(match.name) : null;
 }
 
-function normalizeBookImages(book: GeneratedBook): GeneratedBook {
+interface NormalizedBookResult {
+  book: GeneratedBook;
+  mutated: boolean;
+}
+
+async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookResult> {
+  if (!book.id) {
+    return { book, mutated: false };
+  }
+
   let mutated = false;
 
-  const pages = book.pages.map((page) => {
-    if (!page.imageUrl) {
-      return page;
-    }
+  const pages = await Promise.all(
+    book.pages.map(async (page) => {
+      if (!page.imageUrl) {
+        return page;
+      }
 
-    const normalizedUrl = normalizePlaceholderUrl(
-      page.imageUrl,
-      page.pageNumber,
-      book.intent.theme
-    );
+      if (page.imageUrl.startsWith("data:image")) {
+        try {
+          const persisted = await persistPageImageFromDataUrl(
+            book.id,
+            page.pageNumber,
+            page.imageUrl
+          );
+          if (persisted) {
+            mutated = true;
+            return {
+              ...page,
+              imageUrl: persisted.relativePath,
+            };
+          }
+        } catch (error) {
+          console.warn(
+            `Failed to persist inline image for book ${book.id} page ${page.pageNumber}:`,
+            error
+          );
+        }
+      }
 
-    if (normalizedUrl === page.imageUrl) {
-      return page;
-    }
+      const normalizedUrl = normalizePlaceholderUrl(
+        page.imageUrl,
+        page.pageNumber,
+        book.intent.theme
+      );
 
-    mutated = true;
-    return {
-      ...page,
-      imageUrl: normalizedUrl,
-    };
-  });
+      if (normalizedUrl === page.imageUrl) {
+        return page;
+      }
+
+      mutated = true;
+      return {
+        ...page,
+        imageUrl: normalizedUrl,
+      };
+    })
+  );
 
   if (!mutated) {
-    return book;
+    return { book, mutated: false };
   }
 
   return {
-    ...book,
-    pages,
+    book: {
+      ...book,
+      pages,
+    },
+    mutated: true,
   };
 }
 
 async function readBookFile(filePath: string) {
   const raw = await fs.readFile(filePath, "utf-8");
   const parsed = JSON.parse(raw) as GeneratedBook;
-  return normalizeBookImages(parsed);
+  const { book, mutated } = await normalizeBookImages(parsed);
+  if (mutated) {
+    try {
+      await fs.writeFile(filePath, JSON.stringify(book, null, 2), "utf-8");
+    } catch (error) {
+      console.warn(`Failed to rewrite normalized book ${book.id}:`, error);
+    }
+  }
+  return book;
 }
 
 async function removeStaleFiles(id: string, keepPath: string) {
@@ -152,7 +200,7 @@ export async function findBook(id: string) {
 
 export async function saveBook(book: GeneratedBook) {
   await ensureBooksDir();
-  const normalized = normalizeBookImages(book);
+  const { book: normalized } = await normalizeBookImages(book);
   const fileName = buildFileName(normalized);
   const filePath = buildFilePath(fileName);
   await fs.writeFile(filePath, JSON.stringify(normalized, null, 2), "utf-8");
@@ -166,6 +214,7 @@ export async function deleteBook(id: string) {
   }
   try {
     await fs.unlink(filePath);
+    await deleteBookImages(id);
   } catch (error) {
     handleMissingFile(error);
   }

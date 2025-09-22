@@ -3,6 +3,13 @@ import { describe, expect, it, vi } from "vitest";
 import { StoryOrchestrator } from "@/lib/services/story-orchestrator";
 import { StoryIntent, StoryJobProgress } from "@/lib/types/story";
 
+vi.mock("@/lib/repository/page-image-repository", () => ({
+  persistPageImageFromDataUrl: vi
+    .fn(async (bookId: string, pageNumber: number) => ({
+      relativePath: `/api/books/${bookId}/pages/${pageNumber}/image`,
+    })),
+}));
+
 const intent: StoryIntent = {
   theme: "Moon sprites share dreams",
   lesson: "compassion",
@@ -67,11 +74,12 @@ describe("StoryOrchestrator", () => {
     expect(persistedBook.status).toBe("completed");
     expect(persistedBook.pages.every((page) => page.imageUrl)).toBe(true);
 
-    expect(result.book.pages.map((page) => page.imageUrl)).toEqual([
-      "data:image/png;base64,page-1",
-      "data:image/png;base64,page-2",
-      "data:image/png;base64,page-3",
-    ]);
+    const expectedPaths = [1, 2, 3].map(
+      (pageNumber) => `/api/books/${result.book.id}/pages/${pageNumber}/image`
+    );
+
+    expect(result.book.pages.map((page) => page.imageUrl)).toEqual(expectedPaths);
+    expect(persistedBook.pages.map((page) => page.imageUrl)).toEqual(expectedPaths);
 
     const [, secondCall] = imageGenerator.generate.mock.calls;
     const [, , secondOptions] = secondCall;

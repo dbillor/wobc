@@ -27,7 +27,7 @@ include any markdown, prose, or commentary. Requirements:
         )
         .join("; ")
     : "create protagonists that align with the theme"
-}
+ }
 
 Ensure the book has:
 1. A title, subtitle/tagline, and dedication that captures the intent.
@@ -43,4 +43,5 @@ Ensure the book has:
 5. Avoid scary imagery; emphasize warmth and inclusivity.
 6. Vary pacing: quiet spreads, playful action, reflective breaths.
 7. Call out motifs or objects that can recur visually for continuity.
+8. Keep each page distinct—evolve locations, props, and emotional beats so no two spreads feel redundant, yet tie them together with the core characters and motifs.
 `;

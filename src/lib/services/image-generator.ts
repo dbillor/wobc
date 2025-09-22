@@ -150,7 +150,7 @@ export class ImageGenerator {
       .filter(Boolean) as GeminiPart[];
 
     const promptSections = [
-      "You are Nanobanana, a Gemini concept artist maintaining consistent characters and a clear progression for a children's picture book.",
+      "You are Nanobanana, a Gemini concept artist who keeps characters consistent while evolving staging, mood, and settings across a children's picture book.",
       "\n## Story Overview",
       `- Title: ${book.title}`,
       `- Lesson: ${book.intent.lesson}`,
@@ -161,7 +161,9 @@ export class ImageGenerator {
       "\n## Scene Description",
       sceneDescription,
       keyMomentsList ? `Key beats to highlight:\n${keyMomentsList}` : undefined,
-      previousScenes ? `\n## Previous Scenes Recap\n${previousScenes}` : undefined,
+      previousScenes
+        ? `\n## Previous Scenes Recap\n${previousScenes}\nUse these beats for continuity cues, not for repeating the same backdrop or composition.`
+        : undefined,
       "\n## Character Continuity",
       activeCharacters.length
         ? activeCharacters
@@ -187,7 +189,9 @@ export class ImageGenerator {
       options.frameSeed ? `\n## Seed Hint\n- ${options.frameSeed}` : undefined,
       "\n## Rendering Guidance",
       "- Portrait orientation at 768x1024. Keep characters prominent and expressive.",
-      "- Use the dreamy pastel palette described",
+      "- Use the dreamy pastel palette described.",
+      "- Introduce a fresh camera angle or environmental detail relative to prior pages.",
+      "- Let backgrounds shift when the story suggests progress; continuity lives in characters, motifs, and emotional throughline.",
       "- Deliver a single finished illustration as inline image data.",
     ].filter(Boolean);
 

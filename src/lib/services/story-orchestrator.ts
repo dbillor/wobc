@@ -15,6 +15,7 @@ import {
   createImageGenerator,
 } from "@/lib/services/image-generator";
 import { saveBook } from "@/lib/repository/book-repository";
+import { persistPageImageFromDataUrl } from "@/lib/repository/page-image-repository";
 
 interface StoryOrchestratorDeps {
   storyGenerator?: Pick<StoryGenerator, "generate">;
@@ -77,11 +78,36 @@ export class StoryOrchestrator {
 
     for (const page of book.pages) {
       try {
-        page.imageUrl = await this.imageGenerator.generate(book, page, {
+        const generatedImage = await this.imageGenerator.generate(book, page, {
           frameSeed: `${book.id}-${page.pageNumber}`,
           priorFrames: priorFrames.slice(-2),
           priorSummaries: priorSummaries.slice(-3),
         });
+        if (generatedImage?.startsWith("data:image")) {
+          let storedUrl: string | null = null;
+          try {
+            storedUrl = (
+              await persistPageImageFromDataUrl(
+                book.id,
+                page.pageNumber,
+                generatedImage
+              )
+            )?.relativePath ?? null;
+          } catch (persistError) {
+            console.warn(
+              `Failed to persist image for book ${book.id} page ${page.pageNumber}:`,
+              persistError
+            );
+          }
+          page.imageUrl = storedUrl ?? generatedImage;
+          priorFrames.push(generatedImage);
+          if (priorFrames.length > 2) {
+            priorFrames.splice(0, priorFrames.length - 2);
+          }
+        } else {
+          page.imageUrl = generatedImage;
+          priorFrames.length = 0;
+        }
       } catch (error) {
         page.imageUrl = undefined;
         onProgress?.({
@@ -104,10 +130,6 @@ export class StoryOrchestrator {
         message: `Rendered page ${page.pageNumber}`,
         completedPages: page.pageNumber,
       });
-
-      if (page.imageUrl?.startsWith("data:image")) {
-        priorFrames.push(page.imageUrl);
-      }
 
       priorSummaries.push({
         pageNumber: page.pageNumber,

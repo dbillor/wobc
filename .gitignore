@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local data
 /data/books.json
+/data/books.json.bak
+/data/books/
+/data/book-images/

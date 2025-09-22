@@ -109,6 +109,7 @@ export function BookViewer() {
                   fill
                   sizes="(max-width: 1024px) 100vw, 720px"
                   className="object-cover"
+                  unoptimized
                   priority
                 />
               ) : (

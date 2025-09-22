@@ -69,8 +69,8 @@ async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookR
     normalizedBook = {
       ...normalizedBook,
       intent: {
-        audience: "child",
         ...normalizedBook.intent,
+        audience: "child",
       },
     };
     mutated = true;

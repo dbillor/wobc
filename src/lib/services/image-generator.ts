@@ -23,7 +23,7 @@ type GeminiPart =
 
 const DEFAULT_PLACEHOLDER_BASE = "https://placehold.co/768x1024/1b1b3a/eeeeff.png";
 const DEFAULT_GEMINI_MODEL =
-  process.env.GEMINI_IMAGE_MODEL ?? process.env.NANOBANANA_MODEL ?? "gemini-2.5-flash-image-preview";
+  process.env.GEMINI_IMAGE_MODEL ?? process.env.NANOBANANA_MODEL ?? "gemini-3-pro-image-preview";
 
 export interface ImageGeneratorDeps {
   client?: GoogleGenerativeAI | null;

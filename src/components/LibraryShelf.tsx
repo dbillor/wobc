@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -8,8 +9,6 @@ import { useBookStore } from "@/state/book-store";
 export function LibraryShelf() {
   const library = useBookStore((state) => state.library);
   const fetchLibrary = useBookStore((state) => state.fetchLibrary);
-  const selectBook = useBookStore((state) => state.selectBook);
-  const currentBook = useBookStore((state) => state.book);
 
   useEffect(() => {
     fetchLibrary().catch(() => undefined);
@@ -32,32 +31,35 @@ export function LibraryShelf() {
         </div>
       </header>
       <div className="grid gap-4 md:grid-cols-3">
-        {library.map((book) => {
-          const isActive = currentBook?.id === book.id;
-          return (
-            <motion.button
-              key={book.id}
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => selectBook(book.id)}
-              className={`pixel-card text-left flex flex-col gap-3 ${
-                isActive ? "outline outline-2" : ""
-              }`}
-              style={{ outlineColor: isActive ? "rgba(255, 126, 219, 0.6)" : undefined }}
+        {library.map((book) => (
+          <motion.div
+            key={book.id}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            className="h-full"
+          >
+            <Link
+              href={`/books/${book.id}`}
+              className="pixel-card h-full text-left flex flex-col gap-3 hover:border-sunset/70 transition-colors"
             >
               <p className="text-xs uppercase tracking-[0.35em] text-sunset">
                 {new Date(book.createdAt).toLocaleDateString()}
               </p>
               <h4 className="text-base font-semibold text-pale">{book.title}</h4>
-              <p className="text-sm text-dim overflow-hidden text-ellipsis" style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}>
+              <p
+                className="text-sm text-dim overflow-hidden text-ellipsis"
+                style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}
+              >
                 {book.subtitle}
               </p>
-              <div className="text-xs text-faint">
-                {book.pages.length} pages • {book.intent.tone} tone
+              <div className="text-xs text-faint flex items-center gap-2">
+                <span>{book.pages.length} pages</span>
+                <span aria-hidden>•</span>
+                <span>{book.intent.tone} tone</span>
               </div>
-            </motion.button>
-          );
-        })}
+            </Link>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

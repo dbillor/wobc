@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { TouchEvent } from "react";
@@ -153,6 +154,9 @@ export function BookViewer() {
         </div>
         <div className="flex items-center gap-3">
           <span className="hidden md:inline text-xs text-[#827689]">Swipe or use arrow keys</span>
+          <Link href={`/books/${book.id}`} className="reader-button secondary hidden sm:inline-flex">
+            Full-page view
+          </Link>
           <button type="button" onClick={closeBook} className="reader-button">
             Close ✕
           </button>
@@ -180,7 +184,7 @@ export function BookViewer() {
                     alt={currentPage.headline}
                     fill
                     sizes="(max-width: 768px) 100vw, 720px"
-                    className="object-cover"
+                    className="object-contain"
                     unoptimized
                     priority
                   />
@@ -190,32 +194,6 @@ export function BookViewer() {
                   </div>
                 )}
                 <div className="reader-page-vignette" />
-                <div className="reader-page-number">
-                  <span className="font-semibold text-sm">{currentPage.headline}</span>
-                  <span className="text-xs text-[#6b5d6c]">Page {currentPage.pageNumber}</span>
-                </div>
-                <AnimatePresence>
-                  {showTranscript && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 12 }}
-                      transition={{ duration: 0.25 }}
-                      className="reader-transcript"
-                    >
-                      <p className="text-[11px] uppercase tracking-[0.22em] text-[#796b6f]">
-                        On-page text
-                      </p>
-                      <div className="flex flex-col gap-2 text-sm leading-relaxed text-[#352f3d]">
-                        {pageCopyLines.length ? (
-                          pageCopyLines.map((line, index) => <p key={index}>{line}</p>)
-                        ) : (
-                          <p>Text renders directly inside the illustration.</p>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </motion.figure>
             </AnimatePresence>
             <button
@@ -238,68 +216,67 @@ export function BookViewer() {
             </button>
           </div>
 
-          <div className="reader-card grid gap-3 md:grid-cols-[1fr_auto] items-start">
-            <div className="flex flex-wrap gap-2">
-              {currentPage.keyMoments.length ? (
-                currentPage.keyMoments.map((moment) => (
-                  <span key={moment} className="reader-chip subtle">
-                    {moment}
-                  </span>
-                ))
-              ) : (
-                <span className="text-xs text-[#7a6f7e]">Key beats will appear here.</span>
-              )}
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  className="px-3 py-2 rounded-xl border border-lighterInk-soft bg-[rgba(255,255,255,0.06)] text-xs md:text-sm font-semibold text-pale hover:bg-[rgba(255,255,255,0.1)]"
+                  onClick={() => setShowTranscript((state) => !state)}
+                >
+                  {showTranscript ? "Hide page text" : "Show page text"}
+                </button>
+                <button
+                  type="button"
+                  className="px-3 py-2 rounded-xl border border-lighterInk-soft bg-[rgba(255,255,255,0.06)] text-xs md:text-sm font-semibold text-pale hover:bg-[rgba(255,255,255,0.1)]"
+                  onClick={() => setShowPrompt((state) => !state)}
+                >
+                  {showPrompt ? "Hide art notes" : "Art direction"}
+                </button>
+                <Link
+                  href={`/books/${book.id}`}
+                  className="px-3 py-2 rounded-xl border border-lighterInk-soft bg-sunset text-ink text-xs md:text-sm font-semibold shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
+                >
+                  Open reader view
+                </Link>
+              </div>
+              <span className="text-xs text-[#827689]">
+                Page {activePage.toString().padStart(2, "0")} / {totalPages.toString().padStart(2, "0")}
+              </span>
             </div>
-            <div className="flex flex-wrap gap-2 justify-start md:justify-end">
-              <button
-                type="button"
-                className="reader-button secondary"
-                onClick={() => setShowTranscript((state) => !state)}
-              >
-                {showTranscript ? "Hide transcript" : "Show transcript"}
-              </button>
-              <button
-                type="button"
-                className="reader-button secondary"
-                onClick={() => setShowPrompt((state) => !state)}
-              >
-                {showPrompt ? "Hide art notes" : "Art direction"}
-              </button>
-            </div>
-            {showPrompt && (
-              <div className="reader-subcard md:col-span-2">
-                <p className="text-[11px] uppercase tracking-[0.25em] text-[#7f6c6f]">
-                  Illustrator prompt
+
+            {showTranscript && (
+              <div className="rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[rgba(10,6,20,0.72)] p-3 md:p-4 text-sm leading-relaxed text-[#eae9ff] shadow-[0_12px_30px_rgba(0,0,0,0.28)]">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-[#9b8ca3] mb-2">
+                  On-page text
                 </p>
-                <p className="text-sm text-[#3c3443] leading-relaxed whitespace-pre-line">
-                  {currentPage.illustrationPrompt}
-                </p>
+                <div className="flex flex-col gap-2">
+                  {pageCopyLines.length ? (
+                    pageCopyLines.map((line, index) => <p key={index}>{line}</p>)
+                  ) : (
+                    <p>The text is lettered directly into the illustration.</p>
+                  )}
+                </div>
               </div>
             )}
-          </div>
 
-          <div className="reader-card grid gap-3 md:grid-cols-3 text-sm text-[#493f50]">
-            <div>
-              <strong className="text-ink">Dedication:</strong> {book.dedication}
-            </div>
-            <div>
-              <strong className="text-ink">Moral:</strong> {book.moral}
-            </div>
-            <div>
-              <strong className="text-ink">Aesthetic:</strong> {book.aestheticNotes}
-            </div>
-          </div>
+            {showPrompt && (
+              <div className="rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[rgba(10,6,20,0.72)] p-3 md:p-4 text-sm leading-relaxed text-[#eae9ff] shadow-[0_12px_30px_rgba(0,0,0,0.28)]">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-[#9b8ca3] mb-2">
+                  Art direction
+                </p>
+                <p className="whitespace-pre-line">{currentPage.illustrationPrompt}</p>
+              </div>
+            )}
 
-          <div className="flex items-center gap-3 justify-center text-sm text-[#6d6072]">
-            <span className="reader-chip subtle">
-              {activePage.toString().padStart(2, "0")}
-            </span>
-            <div className="reader-progress">
-              <div className="reader-progress-fill" style={{ width: `${progress}%` }} />
+            <div className="flex items-center gap-3 justify-center text-xs text-[#b7adc7]">
+              <div className="h-2 w-full max-w-xl rounded-full bg-[rgba(255,255,255,0.08)] overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-sunset to-pastel transition-[width] duration-200 ease-out"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             </div>
-            <span className="reader-chip subtle">
-              {totalPages.toString().padStart(2, "0")}
-            </span>
           </div>
         </div>
       </div>

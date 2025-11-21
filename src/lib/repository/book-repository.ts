@@ -90,7 +90,7 @@ async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookR
   const pages = await Promise.all(
     normalizedBook.pages.map(async (page) => {
       const nextPageText = page.pageText ?? derivePageText(page.narrative);
-      let workingPage = nextPageText && !page.pageText
+      const workingPage = nextPageText && !page.pageText
         ? { ...page, pageText: nextPageText }
         : page;
 

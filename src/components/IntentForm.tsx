@@ -226,7 +226,7 @@ export function IntentForm() {
         </h1>
         <p className="text-sm md:text-base text-muted">
           Drop in your theme, the lesson you wish to share, and any heroes to feature.
-          Our high-reasoning muse will weave a story and illustration prompts tuned to your chosen audience, keeping mood and characters consistent across every page.
+          Our GPT-5.1 reasoning muse will weave a story, letter the page text directly inside each illustration, and tune prompts to keep mood and characters consistent across every page.
         </p>
       </header>
 
@@ -487,8 +487,8 @@ export function IntentForm() {
       <footer className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="text-xs md:text-sm text-dim max-w-xl">
           {isAdult
-            ? `We will craft up to ${draft.pageCount} illustrated movements, each paired with a tailored Nanobanana prompt to sustain the philosophical mood and symbolism you outline.`
-            : `We will craft up to ${draft.pageCount} spreads, each paired with a tailored Nanobanana illustration prompt to maintain character continuity and mood across the entire book.`}
+            ? `We will craft up to ${draft.pageCount} illustrated movements, letter the prose onto each page, and pair them with Gemini 3 (Nanobanana Pro) prompts that sustain the philosophical mood and symbolism you outline.`
+            : `We will craft up to ${draft.pageCount} spreads, letter the story directly inside the art, and pair them with Gemini 3 (Nanobanana Pro) prompts to maintain character continuity and mood across the entire book.`}
         </div>
         <button
           type="submit"

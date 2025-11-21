@@ -14,7 +14,20 @@ import {
   storyResponseSchema,
 } from "@/lib/validation/story-response";
 
-const DEFAULT_MODEL = process.env.OPENAI_STORY_MODEL ?? "gpt-4.1";
+const DEFAULT_MODEL = process.env.OPENAI_STORY_MODEL ?? "gpt-5.1";
+
+const derivePageText = (narrative: string) => {
+  const sentences = narrative
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(/(?<=[.!?])\s+/)
+    .filter(Boolean);
+
+  if (!sentences.length) return "";
+
+  const trimmed = sentences.slice(0, 2).join(" ").trim();
+  return trimmed.slice(0, 240);
+};
 
 const createClient = () => {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -55,12 +68,33 @@ export class StoryGenerator {
         },
       ],
       temperature: 0.7,
-      max_tokens: Math.min(12000, Math.max(4000, intent.pageCount * 400)),
       response_format: { type: "json_object" },
     });
 
     const choice = response.choices?.[0];
-    const raw = choice?.message?.content?.trim();
+    const raw = (() => {
+      const content = choice?.message?.content;
+      if (typeof content === "string") return content.trim();
+      if (Array.isArray(content)) {
+        const combined = content
+          .map((part) => {
+            if (!part) return "";
+            if (typeof part === "string") return part;
+            if ("text" in part) {
+              const text = (part as { text?: unknown }).text;
+              if (typeof text === "string") return text;
+              if (text && typeof text === "object" && "value" in text && typeof (text as { value?: unknown }).value === "string") {
+                return (text as { value: string }).value;
+              }
+            }
+            return "";
+          })
+          .join("")
+          .trim();
+        return combined || undefined;
+      }
+      return undefined;
+    })();
 
     if (!raw) {
       throw new Error("Story generator returned empty response");
@@ -107,8 +141,17 @@ export class StoryGenerator {
         mutable.pages = mutable.pages.map((page) => {
           if (page && typeof page === "object") {
             const mutablePage = page as Record<string, unknown>;
+            if (typeof mutablePage.narrative === "string") {
+              mutablePage.narrative = mutablePage.narrative.slice(0, 1500);
+            }
             if (!mutablePage.illustrationPrompt && typeof mutablePage.illustrationDirection === "string") {
               mutablePage.illustrationPrompt = mutablePage.illustrationDirection;
+            }
+            if (typeof mutablePage.pageText === "string") {
+              mutablePage.pageText = mutablePage.pageText.slice(0, 240);
+            }
+            if (!mutablePage.pageText && typeof mutablePage.narrative === "string") {
+              mutablePage.pageText = derivePageText(mutablePage.narrative);
             }
             return mutablePage;
           }
@@ -141,6 +184,7 @@ export class StoryGenerator {
       pageNumber: index + 1,
       headline: page.headline,
       narrative: page.narrative,
+      pageText: page.pageText,
       illustrationPrompt: page.illustrationPrompt,
       keyMoments: page.keyMoments,
       imageUrl: undefined,
@@ -177,9 +221,18 @@ export class StoryGenerator {
     const pages: StoryPage[] = Array.from({ length: intent.pageCount }, (_, idx) => ({
       pageNumber: idx + 1,
       headline: `Scene ${idx + 1}: ${intent.theme}`,
-      narrative: isAdult
-        ? "Placeholder narrative for adult illustrated stories. Replace with OpenAI-powered prose when API keys are configured, and expand into reflective, nuanced paragraphs."
-        : "Placeholder narrative crafted for offline mode. Replace with OpenAI-powered prose when API keys are configured.",
+      narrative: (() => {
+        const description = isAdult
+          ? "Placeholder narrative for adult illustrated stories. Replace with OpenAI-powered prose when API keys are configured, and expand into reflective, nuanced paragraphs."
+          : "Placeholder narrative crafted for offline mode. Replace with OpenAI-powered prose when API keys are configured.";
+        return `${description} This scene centers on ${intent.theme.toLowerCase()}.`;
+      })(),
+      pageText: (() => {
+        const text = isAdult
+          ? "Temporary on-page caption for adult illustrated stories. Swap once GPT-5.1 reasoning output is available."
+          : "Temporary on-page caption for little listeners. Replace when GPT-5.1 reasoning output is live.";
+        return derivePageText(text) || text;
+      })(),
       illustrationPrompt:
         (isAdult
           ? `Atmospheric ${intent.theme} tableau featuring ${

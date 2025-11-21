@@ -31,6 +31,7 @@ export interface StoryPage {
   pageNumber: number;
   headline: string;
   narrative: string;
+  pageText: string;
   illustrationPrompt: string;
   keyMoments: string[];
   imageUrl?: string;

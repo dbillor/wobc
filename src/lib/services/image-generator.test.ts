@@ -31,6 +31,7 @@ describe("ImageGenerator", () => {
       pageNumber: 1,
       headline: "Intro",
       narrative: "",
+      pageText: "",
       illustrationPrompt: "",
       keyMoments: [],
     };
@@ -74,6 +75,7 @@ describe("ImageGenerator", () => {
       pageNumber: 2,
       headline: "Middle",
       narrative: "",
+      pageText: "",
       illustrationPrompt: "",
       keyMoments: [],
     };
@@ -83,6 +85,52 @@ describe("ImageGenerator", () => {
     expect(generateContent).toHaveBeenCalled();
     expect(url).toMatch(/placehold\.co/);
     expect(url).toContain("Page%202");
+  });
+
+  it("falls back to placeholder when the model is missing", async () => {
+    const generateContent = vi
+      .fn()
+      .mockRejectedValue(
+        new GoogleGenerativeAIFetchError(
+          "not found",
+          404,
+          "Not Found",
+          []
+        )
+      );
+
+    const client = {
+      getGenerativeModel: vi.fn().mockReturnValue({
+        generateContent,
+      }),
+    };
+
+    const generator = new ImageGenerator({
+      client: client as unknown as GoogleGenerativeAI,
+      model: "nanobanana-pro",
+    });
+
+    const book = {
+      title: "Test",
+      moral: "Kindness wins",
+      aestheticNotes: "Pastel",
+      intent,
+    } as Pick<GeneratedBook, "title" | "moral" | "aestheticNotes" | "intent">;
+
+    const page: StoryPage = {
+      pageNumber: 3,
+      headline: "Missing Model",
+      narrative: "",
+      pageText: "",
+      illustrationPrompt: "",
+      keyMoments: [],
+    };
+
+    const url = await generator.generate(book, page);
+
+    expect(generateContent).toHaveBeenCalled();
+    expect(url).toMatch(/placehold\.co/);
+    expect(url).toContain("Page%203");
   });
 
   it("falls back to placeholder when Gemini reports a server error", async () => {
@@ -118,6 +166,7 @@ describe("ImageGenerator", () => {
       pageNumber: 3,
       headline: "Finale",
       narrative: "",
+      pageText: "",
       illustrationPrompt: "",
       keyMoments: [],
     };
@@ -192,6 +241,7 @@ describe("ImageGenerator", () => {
       pageNumber: 1,
       headline: "Forest Glow",
       narrative: "Fireflies gather around a quiet glade.",
+      pageText: "Fireflies gather around a quiet glade.",
       illustrationPrompt: "Soft lights twinkle beside a creek.",
       keyMoments: ["Fireflies shimmer"],
     } satisfies StoryPage;
@@ -200,6 +250,7 @@ describe("ImageGenerator", () => {
       pageNumber: 2,
       headline: "Lira Steps Forward",
       narrative: "Lira lifts her braids as she steps into the glow.",
+      pageText: "Lira lifts her braids as she steps into the glow.",
       illustrationPrompt: "Lira smiles beside the creek, fireflies swirling.",
       keyMoments: ["Lira glows"],
     } satisfies StoryPage;

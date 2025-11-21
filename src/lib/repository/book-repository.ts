@@ -57,6 +57,17 @@ interface NormalizedBookResult {
   mutated: boolean;
 }
 
+function derivePageText(narrative?: string) {
+  if (!narrative) return "";
+  const sentences = narrative
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(/(?<=[.!?])\s+/)
+    .filter(Boolean);
+  if (!sentences.length) return "";
+  return sentences.slice(0, 2).join(" ").slice(0, 240);
+}
+
 async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookResult> {
   if (!book.id) {
     return { book, mutated: false };
@@ -78,45 +89,56 @@ async function normalizeBookImages(book: GeneratedBook): Promise<NormalizedBookR
 
   const pages = await Promise.all(
     normalizedBook.pages.map(async (page) => {
-      if (!page.imageUrl) {
-        return page;
+      const nextPageText = page.pageText ?? derivePageText(page.narrative);
+      let workingPage = nextPageText && !page.pageText
+        ? { ...page, pageText: nextPageText }
+        : page;
+
+      if (!workingPage.imageUrl) {
+        if (workingPage !== page) {
+          mutated = true;
+        }
+        return workingPage;
       }
 
-      if (page.imageUrl.startsWith("data:image")) {
+      if (workingPage.imageUrl.startsWith("data:image")) {
         try {
           const persisted = await persistPageImageFromDataUrl(
             book.id,
-            page.pageNumber,
-            page.imageUrl
+            workingPage.pageNumber,
+            workingPage.imageUrl
           );
           if (persisted) {
             mutated = true;
             return {
-              ...page,
+              ...workingPage,
               imageUrl: persisted.relativePath,
             };
           }
         } catch (error) {
           console.warn(
-            `Failed to persist inline image for book ${book.id} page ${page.pageNumber}:`,
+            `Failed to persist inline image for book ${book.id} page ${workingPage.pageNumber}:`,
             error
           );
         }
       }
 
       const normalizedUrl = normalizePlaceholderUrl(
-        page.imageUrl,
-        page.pageNumber,
+        workingPage.imageUrl,
+        workingPage.pageNumber,
         normalizedBook.intent.theme
       );
 
-      if (normalizedUrl === page.imageUrl) {
-        return page;
+      if (normalizedUrl === workingPage.imageUrl) {
+        if (workingPage !== page) {
+          mutated = true;
+        }
+        return workingPage;
       }
 
       mutated = true;
       return {
-        ...page,
+        ...workingPage,
         imageUrl: normalizedUrl,
       };
     })

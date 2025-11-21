@@ -49,7 +49,7 @@ export function LoginForm() {
       <header className="space-y-2 text-center">
         <h1 className="text-2xl font-semibold">Welcome back</h1>
         <p className="text-sm text-dim">
-          Enter the shared passcode to open the Nanobanana story studio.
+          Enter the shared passcode to open the story studio.
         </p>
       </header>
       <label className="flex flex-col gap-2 text-sm">

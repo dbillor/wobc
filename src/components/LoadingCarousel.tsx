@@ -14,7 +14,7 @@ const loadingBeats = [
   },
   {
     title: "Binding pixel threads",
-    body: "Weaving consistent character cues for Nanobanana to follow.",
+    body: "Weaving consistent character cues for the illustrator to follow.",
   },
   {
     title: "Charging starlight palettes",
@@ -62,4 +62,3 @@ export function LoadingCarousel() {
     </div>
   );
 }
-

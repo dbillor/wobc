@@ -3,7 +3,8 @@ import { z } from "zod";
 export const storyPageSchema = z.object({
   pageNumber: z.number().int().min(1).max(30),
   headline: z.string().min(3).max(120),
-  narrative: z.string().min(30).max(800),
+  narrative: z.string().min(30).max(1500),
+  pageText: z.string().min(12).max(240),
   illustrationPrompt: z.string().min(10).max(1500),
   keyMoments: z.array(z.string().min(3)).min(1).max(5),
 });

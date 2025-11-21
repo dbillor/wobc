@@ -33,6 +33,7 @@ describe("StoryOrchestrator", () => {
       pageNumber: idx + 1,
       headline: `Scene ${idx + 1}`,
       narrative: "Test narrative",
+      pageText: "Test page text",
       illustrationPrompt: "Prompt",
       keyMoments: ["Beat"],
     }));

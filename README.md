@@ -27,11 +27,9 @@ Create `web/.env.local` (same folder as `package.json`) and supply keys as neede
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `OPENAI_API_KEY` | ✅ | Enables real story generation (defaults to model `gpt-4.1`). |
+| `OPENAI_API_KEY` | ✅ | Enables real story generation (defaults to model `gpt-5.1` with medium reasoning). |
 | `OPENAI_STORY_MODEL` | optional | Override the story model ID. |
-| `GEMINI_API_KEY` | optional | Enables Gemini image generation (falls back to placeholders without it). |
-| `GEMINI_IMAGE_MODEL` | optional | Defaults to `gemini-2.5-flash-image-preview`. |
-| `NANOBANANA_API_KEY` / `NANOBANANA_MODEL` | optional | Legacy Nanobanana support if you prefer that provider. |
+| `NANOBANANA_API_KEY` / `NANOBANANA_MODEL` | ✅ for images | Required for image generation (defaults to `gemini-3-pro-image-preview`). |
 
 > The login passcode is intentionally hard-coded (`family`). Update `src/lib/auth/constants.ts` if you want a different secret.
 

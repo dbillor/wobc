@@ -25,8 +25,12 @@ export const buildStoryUserPrompt = (intent: StoryIntent) => {
     intent.tone === "custom" ? intent.customTone ?? "gentle" : intent.tone;
 
   const narrativeGuidance = isAdult
-    ? "narrative (120-220 words arranged in 2-3 lyrical yet precise paragraphs, suitable for adult readers who enjoy philosophical reflection)"
-    : "narrative (70-120 words arranged in 2-3 gentle paragraphs, lyrical but clear for read-aloud pacing)";
+    ? "narrative (120-190 words arranged in 2-3 lyrical yet precise paragraphs, suitable for adult readers who enjoy philosophical reflection). Keep total characters under 1400."
+    : "narrative (70-110 words arranged in 2-3 gentle paragraphs, lyrical but clear for read-aloud pacing). Keep total characters under 900.";
+
+  const pageTextGuidance = isAdult
+    ? "pageText (25-45 words of crisp, camera-ready prose to letter directly inside the illustration; mix concise narrator captions with a short line of character dialogue when it fits)"
+    : "pageText (18-35 words of simple, read-aloud-friendly copy to be lettered inside the illustration; short lines, and feel free to let characters speak in one short bubble)";
 
   const safetyGuidance = isAdult
     ? "Invite emotional complexity and layered symbolism while keeping content suitable for general adult audiences (no explicit gore or sexual content)."
@@ -72,13 +76,14 @@ Ensure the book has:
    - pageNumber starting at 1,
    - headline (max 12 words) to anchor the scene,
    - ${narrativeGuidance},
+   - ${pageTextGuidance},
    - illustrationPrompt with concrete descriptors, camera framing,
      lighting, palette, continuity reminders (mention characters by name!),
    - keyMoments array summarizing pivotal beats.
 5. ${safetyGuidance}
 6. ${pacingGuidance}
 7. ${motifGuidance}
-8. Keep each page distinct—evolve locations, props, symbolism, and emotional beats so no two spreads feel redundant, yet tie them together with the core characters and motifs.
+8. Page text will be lettered inside the illustration itself—write it so it fits cleanly within a few short lines and pairs with the visual moment.
+9. Keep each page distinct—evolve locations, props, symbolism, and emotional beats so no two spreads feel redundant, yet tie them together with the core characters and motifs.
 `;
 };
-

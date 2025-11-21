@@ -21,9 +21,9 @@ type GeminiPart =
   | { text: string }
   | { inlineData: { mimeType: string; data: string } };
 
-const DEFAULT_PLACEHOLDER_BASE = "https://placehold.co/768x1024/1b1b3a/eeeeff.png";
-const DEFAULT_GEMINI_MODEL =
-  process.env.GEMINI_IMAGE_MODEL ?? process.env.NANOBANANA_MODEL ?? "gemini-2.5-flash-image-preview";
+const DEFAULT_PLACEHOLDER_BASE = "https://placehold.co/768x1024/f2ede5/1f1b2c.png";
+const DEFAULT_NANOBANANA_MODEL =
+  process.env.NANOBANANA_MODEL ?? "gemini-3-pro-image-preview";
 
 export interface ImageGeneratorDeps {
   client?: GoogleGenerativeAI | null;
@@ -35,14 +35,14 @@ export class ImageGenerator {
   private model: string;
 
   constructor(deps: ImageGeneratorDeps = {}) {
+    const nanoKey = process.env.NANOBANANA_API_KEY;
     if (deps.client !== undefined) {
       this.client = deps.client;
     } else {
-      const apiKey = process.env.GEMINI_API_KEY ?? process.env.NANOBANANA_API_KEY;
-      this.client = apiKey ? new GoogleGenerativeAI(apiKey) : null;
+      this.client = nanoKey ? new GoogleGenerativeAI(nanoKey) : null;
     }
 
-    this.model = deps.model ?? DEFAULT_GEMINI_MODEL;
+    this.model = deps.model ?? DEFAULT_NANOBANANA_MODEL;
   }
 
   async generate(
@@ -81,7 +81,7 @@ export class ImageGenerator {
         return this.buildPlaceholder(page.pageNumber, book.intent.theme);
       }
       throw new Error(
-        `Gemini image generation failed: ${error instanceof Error ? error.message : "unknown error"}`
+        `Image generation failed: ${this.formatProviderError(error)}`
       );
     }
 
@@ -110,6 +110,9 @@ export class ImageGenerator {
     const keyMomentsList = page.keyMoments
       .map((moment, index) => `${index + 1}. ${moment}`)
       .join("\n");
+
+    const letteringCopy = (page.pageText || page.narrative).trim();
+    const condensedLettering = letteringCopy.slice(0, 320);
 
     const sceneDescription = [
       page.narrative.trim(),
@@ -153,8 +156,9 @@ export class ImageGenerator {
 
     const promptSections = [
       isAdult
-        ? "You are Nanobanana, a Gemini concept artist who keeps characters consistent while evolving staging, symbolism, and mood across an illustrated narrative for adult readers."
-        : "You are Nanobanana, a Gemini concept artist who keeps characters consistent while evolving staging, mood, and settings across a children's picture book.",
+        ? "You are Nanobanana Pro (Gemini 3 image preview), a concept artist who keeps characters consistent while evolving staging, symbolism, and mood across an illustrated narrative for adult readers."
+        : "You are Nanobanana Pro (Gemini 3 image preview), a concept artist who keeps characters consistent while evolving staging, mood, and settings across a children's picture book.",
+      "- Deliver a finished portrait spread with the story text already lettered into the art. No separate UI chromes or sidebars.",
       "\n## Story Overview",
       `- Title: ${book.title}`,
       `- Lesson: ${book.intent.lesson}`,
@@ -162,6 +166,9 @@ export class ImageGenerator {
       `- Tone: ${tone}`,
       `- Aesthetic notes: ${book.aestheticNotes}`,
       `- Visual motifs: ${book.intent.styleKeywords.join(", ") || "soft starglow"}`,
+      "\n## Page Text To Typeset",
+      condensedLettering ? `"${condensedLettering}"` : "- Text provided separately; use the key moments to decide simple copy.",
+      "Typography and layout: weave the text into the illustration as a clean caption block, speech balloon, ribbon, or environmental signage with high-contrast, legible lettering. Keep generous margins, medium-large type, and align the copy near the focal characters. Avoid handwriting fonts that reduce readability.",
       "\n## Scene Description",
       sceneDescription,
       keyMomentsList ? `Key beats to highlight:\n${keyMomentsList}` : undefined,
@@ -196,6 +203,8 @@ export class ImageGenerator {
       isAdult
         ? "- Lean into the described aesthetic notes to convey mature, contemplative atmosphere."
         : "- Use the dreamy pastel palette described.",
+      "- Page surface should feel neutral and clean (eggshell, light sand, or soft foggy grey) with subtle paper grain; avoid neon backgrounds.",
+      "- Integrate the provided page text within the illustration; keep it crisp, well-spaced, and high-contrast for mobile readability. Let characters speak via balloons or ribbons when natural, or tuck captions into signage/notebooks. No empty text placeholders.",
       "- Introduce a fresh camera angle or environmental detail relative to prior pages.",
       "- Let backgrounds shift when the story suggests progress; continuity lives in characters, motifs, and emotional throughline.",
       "- Deliver a single finished illustration as inline image data.",
@@ -272,7 +281,7 @@ export class ImageGenerator {
   private shouldFallbackToPlaceholder(error: unknown) {
     if (error instanceof GoogleGenerativeAIFetchError) {
       const status = error.status ?? 0;
-      if (status === 429 || status >= 500) {
+      if (status === 429 || status >= 500 || status === 404) {
         return true;
       }
     }
@@ -282,6 +291,7 @@ export class ImageGenerator {
       return (
         message.includes("quota exceeded") ||
         message.includes("too many requests") ||
+        message.includes("not found") ||
         message.includes("internal error encountered") ||
         message.includes("server error")
       );
@@ -289,6 +299,22 @@ export class ImageGenerator {
 
     return false;
   }
+
+  private formatProviderError(error: unknown) {
+    if (error instanceof GoogleGenerativeAIFetchError) {
+      const status = error.status ?? "unknown";
+      const code = (error as { code?: unknown }).code ?? "";
+      const statusText = (error as { statusText?: unknown }).statusText ?? "";
+      return `[status ${status}${statusText ? ` ${statusText}` : ""}${
+        code ? ` code=${String(code)}` : ""
+      }] ${error.message}`;
+    }
+    if (error instanceof Error) {
+      return error.message;
+    }
+    return "unknown error";
+  }
+
 
   private buildPlaceholder(pageNumber: number, theme: string) {
     const safeTheme = theme.replace(/[^a-z0-9]+/gi, " ").trim();

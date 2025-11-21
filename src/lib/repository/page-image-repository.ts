@@ -37,11 +37,22 @@ function isDataUrl(candidate: string) {
 }
 
 function parseDataUrl(dataUrl: string) {
-  const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
-  if (!match) {
+  const prefix = "data:";
+  if (!dataUrl.startsWith(prefix)) {
     throw new Error("Unsupported data URL format");
   }
-  const [, mimeType, base64] = match;
+
+  const base64Marker = ";base64,";
+  const markerIndex = dataUrl.indexOf(base64Marker);
+  if (markerIndex === -1) {
+    throw new Error("Unsupported data URL format");
+  }
+
+  const mimeType = dataUrl.slice(prefix.length, markerIndex);
+  const base64 = dataUrl.slice(markerIndex + base64Marker.length);
+  if (!mimeType || !base64) {
+    throw new Error("Unsupported data URL format");
+  }
   return { mimeType, base64 };
 }
 
@@ -80,6 +91,13 @@ export async function persistPageImageFromDataUrl(
   dataUrl: string
 ) {
   if (!isDataUrl(dataUrl)) {
+    return null;
+  }
+
+  if (dataUrl.length > 20_000_000) {
+    console.warn(
+      `Skipping inline image persistence for book ${bookId} page ${pageNumber}: data URL too large`
+    );
     return null;
   }
 

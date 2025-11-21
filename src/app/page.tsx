@@ -37,7 +37,7 @@ export default async function HomePage() {
             <h2 className="text-2xl font-semibold">Baby & toddler picture books</h2>
             <p className="text-sm text-muted">
               Compose gentle narratives with clear lessons, recurring motifs, and cozy palettes. Tailor tones, lessons, and characters, then let
-              our muse generate bedtime-perfect spreads with Nanobanana illustration prompts.
+              our muse generate bedtime-perfect spreads with Gemini 3 (Nanobanana Pro) illustration prompts.
             </p>
             <div className="mt-auto">
               <Link href={childCta} className="pixel-button-sm">
@@ -49,7 +49,7 @@ export default async function HomePage() {
             <p className="text-xs uppercase tracking-[0.35em] text-sunset">For deep thinkers</p>
             <h2 className="text-2xl font-semibold">Adult & philosophical narratives</h2>
             <p className="text-sm text-muted">
-              Shift into mature storytelling that favors lyrical paragraphs, symbolic art direction, and complex emotional arcs. Prompt Nanobanana to paint
+              Shift into mature storytelling that favors lyrical paragraphs, symbolic art direction, and complex emotional arcs. Prompt Gemini 3 (Nanobanana Pro) to paint
               moody illustrated scenes that honor your themes and protagonists.
             </p>
             <div className="mt-auto">
@@ -78,7 +78,7 @@ export default async function HomePage() {
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-pale">Illustration ready</h3>
             <p>
-              Nanobanana receives camera notes, palette guidance, and continuity references, keeping your visual canon intact across both playful and profound modes.
+              Gemini 3 (Nanobanana Pro) receives camera notes, palette guidance, and continuity references, keeping your visual canon intact across both playful and profound modes.
             </p>
           </div>
         </section>

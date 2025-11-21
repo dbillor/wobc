@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import type { TouchEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { normalizePlaceholderUrl } from "@/lib/utils/image-placeholders";
 import { useBookStore } from "@/state/book-store";
 
-const pageVariants = {
+const pageVariants: Variants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 60 : -60,
     rotate: direction > 0 ? 1.5 : -1.5,
@@ -21,14 +21,14 @@ const pageVariants = {
     rotate: 0,
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
   },
   exit: (direction: number) => ({
     x: direction > 0 ? -60 : 60,
     rotate: direction > 0 ? -1.4 : 1.4,
     opacity: 0,
     scale: 0.98,
-    transition: { duration: 0.3, ease: "easeIn" },
+    transition: { duration: 0.3, ease: [0.4, 0, 1, 1] },
   }),
 };
 

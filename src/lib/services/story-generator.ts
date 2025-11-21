@@ -1,10 +1,6 @@
 import OpenAI from "openai";
 
-import {
-  GeneratedBook,
-  StoryIntent,
-  StoryPage,
-} from "@/lib/types/story";
+import { GeneratedBook, StoryIntent, StoryPage } from "@/lib/types/story";
 import {
   buildStorySystemPrompt,
   buildStoryUserPrompt,
@@ -15,6 +11,12 @@ import {
 } from "@/lib/validation/story-response";
 
 const DEFAULT_MODEL = process.env.OPENAI_STORY_MODEL ?? "gpt-5.1";
+
+type ChatContentPiece =
+  | string
+  | null
+  | undefined
+  | { text?: string | { value?: string | null } | null };
 
 const derivePageText = (narrative: string) => {
   const sentences = narrative
@@ -73,18 +75,29 @@ export class StoryGenerator {
 
     const choice = response.choices?.[0];
     const raw = (() => {
-      const content = choice?.message?.content;
+      const content = choice?.message?.content as
+        | string
+        | ChatContentPiece[]
+        | null
+        | undefined;
+
       if (typeof content === "string") return content.trim();
+
       if (Array.isArray(content)) {
-        const combined = content
+        const combined = (content as ChatContentPiece[])
           .map((part) => {
             if (!part) return "";
             if (typeof part === "string") return part;
             if ("text" in part) {
-              const text = (part as { text?: unknown }).text;
+              const text = part.text;
               if (typeof text === "string") return text;
-              if (text && typeof text === "object" && "value" in text && typeof (text as { value?: unknown }).value === "string") {
-                return (text as { value: string }).value;
+              if (
+                text &&
+                typeof text === "object" &&
+                "value" in text &&
+                typeof text.value === "string"
+              ) {
+                return text.value;
               }
             }
             return "";
